@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>(7'B) 'D7'D( 'DB/JE) - Old Student Card</title>
+
+  <style>
+    /* Font Loading */
+    @font-face {
+      font-family: 'Almarai';
+      src: url('assets/fonts/Almarai-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Almarai';
+      src: url('assets/fonts/Almarai-Bold.ttf') format('truetype');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Almarai', Arial, sans-serif;
+      background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Vintage paper texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(139, 69, 19, 0.03) 2px,
+          rgba(139, 69, 19, 0.03) 4px
+        );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Main App Container */
+    .app-container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    /* Screen Container */
+    .screen {
+      background: #faf7f0;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow:
+        0 10px 40px rgba(101, 67, 33, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6),
+        0 0 0 1px rgba(101, 67, 33, 0.1);
+      border: 3px solid #d4a574;
+      position: relative;
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    /* Vintage corner decorations */
+    .screen::before,
+    .screen::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 2px solid #c19a6b;
+    }
+
+    .screen::before {
+      top: 10px;
+      right: 10px;
+      border-bottom: none;
+      border-left: none;
+    }
+
+    .screen::after {
+      bottom: 10px;
+      left: 10px;
+      border-top: none;
+      border-right: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    .screen.fade-out {
+      animation: fadeOut 0.3s ease-in-out forwards;
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Welcome Screen Styles */
+    .welcome-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .logo-container {
+      margin-bottom: 30px;
+    }
+
+    .logo {
+      max-width: 120px;
+      height: auto;
+      filter: sepia(0.2) contrast(1.1);
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .app-title {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: #654321;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(101, 67, 33, 0.2);
+      line-height: 1.4;
+    }
+
+    .app-subtitle {
+      font-size: 1.2em;
+      color: #8b6f47;
+      font-weight: normal;
+      margin-top: 10px;
+      font-style: italic;
+    }
+
+    .welcome-description {
+      text-align: center;
+      font-size: 1.1em;
+      color: #6b5744;
+      margin-bottom: 40px;
+      line-height: 1.8;
+      padding: 0 20px;
+    }
+
+    .welcome-description p {
+      margin-bottom: 10px;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 16px 48px;
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #faf7f0;
+      background: linear-gradient(135deg, #8b6f47 0%, #654321 100%);
+      border: 3px solid #c19a6b;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow:
+        0 4px 15px rgba(101, 67, 33, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      text-align: center;
+      font-family: 'Almarai', Arial, sans-serif;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 6px 20px rgba(101, 67, 33, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, #9d7f52 0%, #754b2d 100%);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+      box-shadow:
+        0 2px 10px rgba(101, 67, 33, 0.3),
+        inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    /* Decorative divider */
+    .divider {
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #c19a6b, transparent);
+      margin: 30px auto;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .screen {
+        padding: 30px 20px;
+      }
+
+      .app-title {
+        font-size: 2em;
+      }
+
+      .app-subtitle {
+        font-size: 1em;
+      }
+
+      .welcome-description {
+        font-size: 1em;
+      }
+
+      .btn {
+        padding: 14px 36px;
+        font-size: 1.1em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .app-title {
+        font-size: 1.6em;
+      }
+
+      .logo {
+        max-width: 90px;
+      }
+    }
+
+    /* ========== Form Styles ========== */
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-title {
+      font-size: 2em;
+      font-weight: bold;
+      color: #654321;
+      margin-bottom: 8px;
+    }
+
+    .form-subtitle {
+      font-size: 1em;
+      color: #8b6f47;
+      font-style: italic;
+    }
+
+    .student-form {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1em;
+      color: #654321;
+      font-weight: bold;
+    }
+
+    .label-text {
+      margin-left: 4px;
+    }
+
+    .required {
+      color: #a0522d;
+      font-size: 1.2em;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1em;
+      font-family: 'Almarai', Arial, sans-serif;
+      border: 2px solid #d4a574;
+      border-radius: 6px;
+      background: #fffef8;
+      color: #654321;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 1px 3px rgba(101, 67, 33, 0.1);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #c19a6b;
+      background: #ffffff;
+      box-shadow:
+        inset 0 1px 3px rgba(101, 67, 33, 0.1),
+        0 0 0 3px rgba(193, 154, 107, 0.2);
+    }
+
+    .form-input::placeholder {
+      color: #b8a68f;
+      opacity: 0.8;
+    }
+
+    .form-select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;charset=UTF-8,%3csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23654321" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3e%3cpolyline points="6 9 12 15 18 9"%3e%3c/polyline%3e%3c/svg%3e');
+      background-repeat: no-repeat;
+      background-position: left 12px center;
+      background-size: 20px;
+      padding-left: 40px;
+    }
+
+    .form-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.85em;
+      color: #8b6f47;
+      font-style: italic;
+    }
+
+    .error-message {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.9em;
+      color: #a0522d;
+      min-height: 20px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .btn-secondary {
+      background: linear-gradient(135deg, #a89784 0%, #8b7d6b 100%);
+      border-color: #a89784;
+    }
+
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, #b5a594 0%, #9a8b7a 100%);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .btn:disabled:hover {
+      background: linear-gradient(135deg, #8b6f47 0%, #654321 100%);
+      box-shadow:
+        0 4px 15px rgba(101, 67, 33, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    }
+
+    /* Form Responsive */
+    @media (max-width: 768px) {
+      .form-title {
+        font-size: 1.6em;
+      }
+
+      .form-actions {
+        flex-direction: column;
+      }
+
+      .btn-primary,
+      .btn-secondary {
+        width: 100%;
+        min-width: auto;
+      }
+    }
+
+    /* ========== Card Preview & Print Styles ========== */
+
+    .preview-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .preview-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 30px 0;
+      padding: 20px;
+    }
+
+    /* Print Card - Exact dimensions 90mm x 60mm */
+    .print-card {
+      width: 90mm;
+      height: 60mm;
+      position: relative;
+      background-image: url('assets/images/background.png');
+      background-size: cover;
+      background-position: center;
+      border-radius: 4px;
+      box-shadow:
+        0 8px 24px rgba(101, 67, 33, 0.3),
+        0 0 0 1px rgba(101, 67, 33, 0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 8mm;
+      box-sizing: border-box;
+
+      /* Vintage effects */
+      filter: sepia(0.1) contrast(1.05);
+    }
+
+    /* Card Logo */
+    .card-logo {
+      position: absolute;
+      top: 6mm;
+      right: 6mm;
+      height: 12mm;
+      width: auto;
+      filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.2));
+      z-index: 2;
+    }
+
+    /* Card Content */
+    .card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding-top: 8mm;
+      z-index: 1;
+    }
+
+    .card-name {
+      font-size: 18pt;
+      font-weight: bold;
+      color: #2c1810;
+      margin-bottom: 3mm;
+      line-height: 1.2;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+      max-width: 70mm;
+      word-wrap: break-word;
+    }
+
+    .card-school {
+      font-size: 11pt;
+      color: #4a2c1a;
+      margin-bottom: 2mm;
+      font-weight: 600;
+      max-width: 70mm;
+      line-height: 1.3;
+    }
+
+    .card-year {
+      font-size: 10pt;
+      color: #5d3a24;
+      font-weight: 500;
+      font-style: italic;
+    }
+
+    /* Card Footer */
+    .card-footer {
+      position: absolute;
+      bottom: 5mm;
+      left: 6mm;
+      z-index: 2;
+    }
+
+    .card-id {
+      font-size: 8pt;
+      color: #6b4423;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+      background: rgba(255, 255, 255, 0.4);
+      padding: 2px 6px;
+      border-radius: 2px;
+    }
+
+    /* Card Seal/Stamp */
+    .card-seal {
+      position: absolute;
+      bottom: 5mm;
+      left: 6mm;
+      height: 16mm;
+      width: auto;
+      opacity: 0.75;
+      filter: sepia(0.3);
+      z-index: 1;
+    }
+
+    /* Preview Actions */
+    .preview-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .preview-actions .btn {
+      min-width: 180px;
+    }
+
+    /* Print Info */
+    .print-info {
+      text-align: center;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(193, 154, 107, 0.1);
+      border-radius: 6px;
+      border: 1px solid rgba(193, 154, 107, 0.3);
+    }
+
+    .print-info p {
+      margin: 5px 0;
+      font-size: 0.9em;
+      color: #654321;
+    }
+
+    /* Print Media Query - Only show card when printing */
+    @media print {
+      @page {
+        size: 90mm 60mm;
+        margin: 0;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: white;
+      }
+
+      body * {
+        visibility: hidden;
+      }
+
+      .print-card,
+      .print-card * {
+        visibility: visible;
+      }
+
+      .print-card {
+        position: fixed;
+        left: 0;
+        top: 0;
+        margin: 0;
+        box-shadow: none;
+        filter: none;
+        border-radius: 0;
+      }
+    }
+
+    /* Preview Responsive */
+    @media (max-width: 768px) {
+      .preview-container {
+        padding: 10px;
+      }
+
+      .print-card {
+        transform: scale(0.85);
+        transform-origin: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .print-card {
+        transform: scale(0.7);
+      }
+
+      .preview-actions {
+        flex-direction: column;
+      }
+
+      .preview-actions .btn {
+        width: 100%;
+      }
+    }
+
+    /* ========== Notifications & Loading States ========== */
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #654321 0%, #8b6f47 100%);
+      color: #faf7f0;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 6px 20px rgba(101, 67, 33, 0.4);
+      border: 2px solid #c19a6b;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      animation: slideInRight 0.3s ease-out;
+      max-width: 350px;
+    }
+
+    .toast.success {
+      background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 100%);
+      border-color: #6b9d4a;
+    }
+
+    .toast.error {
+      background: linear-gradient(135deg, #8b3a3a 0%, #a0522d 100%);
+      border-color: #c19a6b;
+    }
+
+    .toast-icon {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+
+    .toast-message {
+      flex: 1;
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
+
+    .toast.hiding {
+      animation: fadeOut 0.3s ease-in forwards;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* Button Loading State */
+    .btn.loading {
+      position: relative;
+      color: transparent;
+      pointer-events: none;
+    }
+
+    .btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -10px;
+      margin-top: -10px;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* Form Field Focus Enhancement */
+    .form-input:focus {
+      animation: pulse 0.3s ease-out;
+    }
+
+    .form-group {
+      animation: slideInRight 0.3s ease-out backwards;
+    }
+
+    .form-group:nth-child(1) { animation-delay: 0.05s; }
+    .form-group:nth-child(2) { animation-delay: 0.1s; }
+    .form-group:nth-child(3) { animation-delay: 0.15s; }
+
+    /* Success Checkmark */
+    @keyframes checkmark {
+      0% {
+        transform: scale(0) rotate(-45deg);
+      }
+      50% {
+        transform: scale(1.2) rotate(-45deg);
+      }
+      100% {
+        transform: scale(1) rotate(-45deg);
+      }
+    }
+
+    .success-icon {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #4a7c2c;
+      position: relative;
+    }
+
+    .success-icon::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 3px;
+      width: 6px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      animation: checkmark 0.3s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Welcome Screen -->
+    <div id="welcomeScreen" class="screen active">
+      <div class="welcome-header">
+        <div class="logo-container">
+          <img src="assets/images/logo.png" alt="Logo" class="logo">
+        </div>
+        <h1 class="app-title">
+          (7'B) 'D7'D( 'DB/JE)
+        </h1>
+        <p class="app-subtitle">Old Student Card</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="welcome-description">
+        <p>'-*A8 (0C1J'* #J'E 'DE/13)</p>
+        <p>Create your commemorative vintage student card</p>
+      </div>
+
+      <div class="btn-container">
+        <button id="startBtn" class="btn">
+          '(/# / Start
+        </button>
+      </div>
+    </div>
+
+    <!-- Form Screen -->
+    <div id="formScreen" class="screen">
+      <div class="form-header">
+        <h2 class="form-title">بطاقة الطالب / Student Card</h2>
+        <p class="form-subtitle">املأ المعلومات التالية / Fill in the information below</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <form id="studentForm" class="student-form">
+
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="studentName" class="form-label">
+            <span class="label-text">الاسم / Name</span>
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="studentName"
+            name="studentName"
+            class="form-input"
+            placeholder="أدخل الاسم الكامل / Enter full name"
+            maxlength="40"
+            required
+            autocomplete="off"
+          >
+          <span class="error-message" id="nameError"></span>
+        </div>
+
+        <!-- School Dropdown -->
+        <div class="form-group">
+          <label for="studentSchool" class="form-label">
+            <span class="label-text">المدرسة / School</span>
+            <span class="required">*</span>
+          </label>
+          <select
+            id="studentSchool"
+            name="studentSchool"
+            class="form-input form-select"
+            required
+          >
+            <option value="">اختر المدرسة / Select School</option>
+          </select>
+          <span class="error-message" id="schoolError"></span>
+        </div>
+
+        <!-- Year Field -->
+        <div class="form-group">
+          <label for="studentYear" class="form-label">
+            <span class="label-text">السنة / Year</span>
+          </label>
+          <input
+            type="text"
+            id="studentYear"
+            name="studentYear"
+            class="form-input"
+            placeholder="1975"
+            value="1975"
+            maxlength="4"
+            autocomplete="off"
+          >
+          <span class="form-hint">السنة الافتراضية: 1975 / Default year: 1975</span>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" id="previewBtn" class="btn btn-primary" disabled>
+            معاينة البطاقة / Preview Card
+          </button>
+          <button type="button" id="clearBtn" class="btn btn-secondary">
+            مسح / Clear
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Preview Screen -->
+    <div id="previewScreen" class="screen">
+      <div class="preview-header">
+        <h2 class="form-title">معاينة البطاقة / Card Preview</h2>
+        <p class="form-subtitle">تحقق من البيانات قبل الطباعة / Review before printing</p>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Card Preview Container -->
+      <div class="preview-container">
+        <div class="print-card" id="printCard">
+
+          <!-- Logo -->
+          <img src="assets/images/logo.png" alt="Logo" class="card-logo">
+
+          <!-- Card Content -->
+          <div class="card-content">
+            <div class="card-name" id="cardName">اسم الطالب</div>
+            <div class="card-school" id="cardSchool">اسم المدرسة</div>
+            <div class="card-year" id="cardYear">1975</div>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="card-footer">
+            <div class="card-id" id="cardId">SL-20251109-0000</div>
+          </div>
+
+          <!-- Seal/Stamp -->
+          <img src="assets/images/icon.png" alt="Seal" class="card-seal">
+
+        </div>
+      </div>
+
+      <!-- Preview Actions -->
+      <div class="preview-actions">
+        <button type="button" id="printBtn" class="btn btn-primary">
+          طباعة / Print
+        </button>
+        <button type="button" id="downloadBtn" class="btn btn-primary">
+          تحميل PDF / Download PDF
+        </button>
+        <button type="button" id="editBtn" class="btn btn-secondary">
+          تعديل / Edit
+        </button>
+      </div>
+
+      <div class="print-info">
+        <p>💡 تأكد من إعدادات الطباعة: 90 × 60 مم، بدون هوامش</p>
+        <p>💡 Print settings: 90 × 60 mm, No margins, Scale 100%</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Load Schools Data -->
+  <script src="assets/schools-data.js"></script>
+
+  <!-- Optional: PDF Generation Libraries (for download feature) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    // App State
+    const appState = {
+      currentScreen: 'welcome',
+      visitor: {
+        name: '',
+        schoolId: '',
+        schoolLabel: '',
+        schoolLevel: '',
+        year: '1975',
+        id: '',
+        timestamp: ''
+      }
+    };
+
+    // Show Toast Notification
+    function showToast(message, type = 'info') {
+      // Remove existing toasts
+      const existingToast = document.querySelector('.toast');
+      if (existingToast) {
+        existingToast.remove();
+      }
+
+      // Create toast element
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+
+      // Set icon based on type
+      const icons = {
+        success: '✓',
+        error: '✗',
+        info: 'ℹ'
+      };
+
+      toast.innerHTML = `
+        <span class="toast-icon">${icons[type] || icons.info}</span>
+        <span class="toast-message">${message}</span>
+      `;
+
+      document.body.appendChild(toast);
+
+      // Auto-remove after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('hiding');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // Screen Navigation with Smooth Transitions
+    function showScreen(screenName) {
+      const currentScreen = document.querySelector('.screen.active');
+
+      // Fade out current screen
+      if (currentScreen) {
+        currentScreen.classList.add('fade-out');
+
+        setTimeout(() => {
+          // Hide all screens
+          document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active', 'fade-out');
+          });
+
+          // Show requested screen
+          const screenMap = {
+            'welcome': 'welcomeScreen',
+            'form': 'formScreen',
+            'preview': 'previewScreen'
+          };
+
+          const screenId = screenMap[screenName];
+          if (screenId) {
+            const newScreen = document.getElementById(screenId);
+            newScreen.classList.add('active');
+            appState.currentScreen = screenName;
+
+            // Auto-focus first input on form screen
+            if (screenName === 'form') {
+              setTimeout(() => {
+                document.getElementById('studentName').focus();
+              }, 100);
+            }
+          }
+        }, 300);
+      } else {
+        // No current screen, show immediately
+        const screenMap = {
+          'welcome': 'welcomeScreen',
+          'form': 'formScreen',
+          'preview': 'previewScreen'
+        };
+
+        const screenId = screenMap[screenName];
+        if (screenId) {
+          document.getElementById(screenId).classList.add('active');
+          appState.currentScreen = screenName;
+        }
+      }
+    }
+
+    // Generate Unique ID
+    function generateID() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const random = Math.floor(Math.random() * 9000) + 1000; // 4-digit random
+
+      return `SL-${year}${month}${day}-${random}`;
+    }
+
+    // Render Card Preview
+    function renderCardPreview() {
+      const { name, schoolLabel, year } = appState.visitor;
+
+      // Generate ID if not already set
+      if (!appState.visitor.id) {
+        appState.visitor.id = generateID();
+      }
+
+      // Update card elements
+      document.getElementById('cardName').textContent = name;
+      document.getElementById('cardSchool').textContent = schoolLabel;
+      document.getElementById('cardYear').textContent = year;
+      document.getElementById('cardId').textContent = appState.visitor.id;
+    }
+
+    // Populate School Dropdown
+    function populateSchools() {
+      const schoolSelect = document.getElementById('studentSchool');
+
+      // Clear existing options (except the first placeholder)
+      schoolSelect.innerHTML = '<option value="">اختر المدرسة / Select School</option>';
+
+      // Add Elementary Schools
+      const elementaryGroup = document.createElement('optgroup');
+      elementaryGroup.label = `${schoolLevels.elementary.ar} / ${schoolLevels.elementary.en}`;
+      schoolsData.elementary.forEach(school => {
+        const option = document.createElement('option');
+        option.value = `elementary|${school}`;
+        option.textContent = school;
+        elementaryGroup.appendChild(option);
+      });
+      schoolSelect.appendChild(elementaryGroup);
+
+      // Add Middle Schools
+      const middleGroup = document.createElement('optgroup');
+      middleGroup.label = `${schoolLevels.middle.ar} / ${schoolLevels.middle.en}`;
+      schoolsData.middle.forEach(school => {
+        const option = document.createElement('option');
+        option.value = `middle|${school}`;
+        option.textContent = school;
+        middleGroup.appendChild(option);
+      });
+      schoolSelect.appendChild(middleGroup);
+
+      // Add High Schools
+      const highGroup = document.createElement('optgroup');
+      highGroup.label = `${schoolLevels.high.ar} / ${schoolLevels.high.en}`;
+      schoolsData.high.forEach(school => {
+        const option = document.createElement('option');
+        option.value = `high|${school}`;
+        option.textContent = school;
+        highGroup.appendChild(option);
+      });
+      schoolSelect.appendChild(highGroup);
+    }
+
+    // Form Validation
+    function validateForm() {
+      const nameInput = document.getElementById('studentName');
+      const schoolSelect = document.getElementById('studentSchool');
+      const previewBtn = document.getElementById('previewBtn');
+
+      const nameError = document.getElementById('nameError');
+      const schoolError = document.getElementById('schoolError');
+
+      let isValid = true;
+
+      // Validate name
+      const name = nameInput.value.trim();
+      if (name === '') {
+        nameError.textContent = 'الاسم مطلوب / Name is required';
+        isValid = false;
+      } else if (name.length < 2) {
+        nameError.textContent = 'الاسم قصير جداً / Name is too short';
+        isValid = false;
+      } else {
+        nameError.textContent = '';
+      }
+
+      // Validate school
+      if (schoolSelect.value === '') {
+        schoolError.textContent = 'المدرسة مطلوبة / School is required';
+        isValid = false;
+      } else {
+        schoolError.textContent = '';
+      }
+
+      // Enable/disable preview button
+      previewBtn.disabled = !isValid;
+
+      return isValid;
+    }
+
+    // Clear Form
+    function clearForm() {
+      document.getElementById('studentName').value = '';
+      document.getElementById('studentSchool').value = '';
+      document.getElementById('studentYear').value = '1975';
+      document.getElementById('nameError').textContent = '';
+      document.getElementById('schoolError').textContent = '';
+      document.getElementById('previewBtn').disabled = true;
+      document.getElementById('studentName').focus();
+
+      // Show feedback
+      showToast('تم مسح النموذج / Form cleared', 'info');
+    }
+
+    // Handle Preview Button Click
+    function handlePreview() {
+      if (!validateForm()) {
+        return;
+      }
+
+      // Get form values
+      const name = document.getElementById('studentName').value.trim();
+      const schoolValue = document.getElementById('studentSchool').value;
+      const year = document.getElementById('studentYear').value.trim() || '1975';
+
+      // Parse school value (format: "level|schoolName")
+      const [schoolLevel, schoolName] = schoolValue.split('|');
+
+      // Update app state
+      appState.visitor.name = name;
+      appState.visitor.schoolId = schoolValue;
+      appState.visitor.schoolLabel = schoolName;
+      appState.visitor.schoolLevel = schoolLevel;
+      appState.visitor.year = year;
+      appState.visitor.timestamp = new Date().toISOString();
+
+      // Render the card with data
+      renderCardPreview();
+
+      // Navigate to preview screen
+      showScreen('preview');
+    }
+
+    // Handle Print Button
+    function handlePrint() {
+      // Save to localStorage before printing
+      saveCardToHistory();
+
+      // Show notification
+      showToast('فتح نافذة الطباعة... / Opening print dialog...', 'info');
+
+      // Small delay to show notification before print dialog
+      setTimeout(() => {
+        window.print();
+      }, 500);
+    }
+
+    // Handle Download PDF Button
+    async function handleDownloadPDF() {
+      try {
+        const cardElement = document.getElementById('printCard');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Show loading state with class
+        downloadBtn.classList.add('loading');
+        downloadBtn.disabled = true;
+
+        // Convert card to canvas at high resolution
+        const canvas = await html2canvas(cardElement, {
+          scale: 3,
+          useCORS: true,
+          backgroundColor: null,
+          logging: false
+        });
+
+        // Get jsPDF from window (loaded via CDN)
+        const { jsPDF } = window.jspdf;
+
+        // Create PDF with exact dimensions (landscape 90mm x 60mm)
+        const pdf = new jsPDF({
+          orientation: 'landscape',
+          unit: 'mm',
+          format: [60, 90]
+        });
+
+        // Convert canvas to image
+        const imgData = canvas.toDataURL('image/png');
+
+        // Add image to PDF (exact card size)
+        pdf.addImage(imgData, 'PNG', 0, 0, 90, 60);
+
+        // Generate filename with visitor name and ID
+        const filename = `student-card-${appState.visitor.name.replace(/\s+/g, '-')}-${appState.visitor.id}.pdf`;
+
+        // Save PDF
+        pdf.save(filename);
+
+        // Save to history
+        saveCardToHistory();
+
+        // Reset button
+        downloadBtn.classList.remove('loading');
+        downloadBtn.disabled = false;
+
+        // Show success notification
+        showToast('✓ تم تحميل PDF بنجاح / PDF downloaded successfully', 'success');
+
+      } catch (error) {
+        console.error('PDF generation error:', error);
+
+        // Reset button
+        const downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.classList.remove('loading');
+        downloadBtn.disabled = false;
+
+        // Show error notification
+        showToast('✗ حدث خطأ في إنشاء PDF / Error generating PDF', 'error');
+      }
+    }
+
+    // Save card to localStorage history
+    function saveCardToHistory() {
+      try {
+        // Get existing history
+        let history = JSON.parse(localStorage.getItem('printedCards') || '[]');
+
+        // Add current card
+        const cardData = {
+          ...appState.visitor,
+          printedAt: new Date().toISOString()
+        };
+
+        history.unshift(cardData); // Add to beginning
+
+        // Keep only last 100 cards
+        if (history.length > 100) {
+          history = history.slice(0, 100);
+        }
+
+        // Save back to localStorage
+        localStorage.setItem('printedCards', JSON.stringify(history));
+
+        // Update counter
+        const todayCount = getTodayPrintCount();
+        console.log(`Cards printed today: ${todayCount}`);
+
+      } catch (error) {
+        console.error('localStorage error:', error);
+      }
+    }
+
+    // Get count of cards printed today
+    function getTodayPrintCount() {
+      try {
+        const history = JSON.parse(localStorage.getItem('printedCards') || '[]');
+        const today = new Date().toISOString().split('T')[0];
+
+        return history.filter(card => {
+          const cardDate = card.printedAt.split('T')[0];
+          return cardDate === today;
+        }).length;
+
+      } catch (error) {
+        return 0;
+      }
+    }
+
+    // Handle Edit Button
+    function handleEdit() {
+      showScreen('form');
+    }
+
+    // Event Listeners
+    document.getElementById('startBtn').addEventListener('click', () => {
+      showScreen('form');
+      populateSchools(); // Load schools when form is shown
+    });
+
+    // Form input validation
+    document.getElementById('studentName').addEventListener('input', validateForm);
+    document.getElementById('studentSchool').addEventListener('change', validateForm);
+
+    // Form action buttons
+    document.getElementById('previewBtn').addEventListener('click', handlePreview);
+    document.getElementById('clearBtn').addEventListener('click', clearForm);
+
+    // Preview action buttons
+    document.getElementById('printBtn').addEventListener('click', handlePrint);
+    document.getElementById('downloadBtn').addEventListener('click', handleDownloadPDF);
+    document.getElementById('editBtn').addEventListener('click', handleEdit);
+
+    // Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+      // Ctrl/Cmd + P - Print (prevent default browser print)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p' && appState.currentScreen === 'preview') {
+        e.preventDefault();
+        handlePrint();
+      }
+
+      // Ctrl/Cmd + D - Download PDF
+      if ((e.ctrlKey || e.metaKey) && e.key === 'd' && appState.currentScreen === 'preview') {
+        e.preventDefault();
+        handleDownloadPDF();
+      }
+
+      // Escape - Go back / Cancel
+      if (e.key === 'Escape') {
+        if (appState.currentScreen === 'form') {
+          showScreen('welcome');
+        } else if (appState.currentScreen === 'preview') {
+          showScreen('form');
+        }
+      }
+
+      // Enter on form (if valid, go to preview)
+      if (e.key === 'Enter' && appState.currentScreen === 'form') {
+        const previewBtn = document.getElementById('previewBtn');
+        if (!previewBtn.disabled) {
+          handlePreview();
+        }
+      }
+    });
+
+    // Print event listener (for after print completes)
+    window.addEventListener('afterprint', () => {
+      showToast('✓ تمت الطباعة / Print completed', 'success');
+    });
+
+    // Initialize app
+    console.log('🎨 Old Student Card App Initialized');
+    console.log('📍 Current screen:', appState.currentScreen);
+    console.log('⌨️  Keyboard shortcuts enabled:');
+    console.log('   - Escape: Go back');
+    console.log('   - Enter: Submit form (when valid)');
+    console.log('   - Ctrl/Cmd+P: Print card');
+    console.log('   - Ctrl/Cmd+D: Download PDF');
+
+    // Log print history on startup
+    const todayCount = getTodayPrintCount();
+    if (todayCount > 0) {
+      console.log(`📊 Cards printed today: ${todayCount}`);
+    }
+  </script>
+
+</body>
+</html>
