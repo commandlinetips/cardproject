@@ -502,62 +502,45 @@
       z-index: 2;
     }
 
-    /* Card Content */
+    /* Card Content - Old School Form Style */
     .card-content {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding-top: 8mm;
+      align-items: flex-start;
+      padding: 12mm 10mm 8mm 10mm;
       z-index: 1;
+      gap: 2.5mm;
     }
 
-    .card-name {
-      font-size: 18pt;
+    .card-field {
+      width: 100%;
+      display: flex;
+      align-items: baseline;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .field-label {
+      font-size: 9pt;
       font-weight: bold;
       color: #2c1810;
-      margin-bottom: 3mm;
-      line-height: 1.2;
-      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-      max-width: 70mm;
-      word-wrap: break-word;
+      min-width: 50px;
+      margin-left: 3px;
+      white-space: nowrap;
     }
 
-    .card-school {
-      font-size: 11pt;
-      color: #4a2c1a;
-      margin-bottom: 2mm;
-      font-weight: 600;
-      max-width: 70mm;
-      line-height: 1.3;
-    }
-
-    .card-year {
+    .field-value {
       font-size: 10pt;
-      color: #5d3a24;
+      color: #3a2416;
       font-weight: 500;
-      font-style: italic;
-    }
-
-    /* Card Footer */
-    .card-footer {
-      position: absolute;
-      bottom: 5mm;
-      left: 6mm;
-      z-index: 2;
-    }
-
-    .card-id {
-      font-size: 8pt;
-      color: #6b4423;
-      font-family: 'Courier New', monospace;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      background: rgba(255, 255, 255, 0.4);
-      padding: 2px 6px;
-      border-radius: 2px;
+      flex: 1;
+      border-bottom: 1px solid #6b4423;
+      padding-bottom: 1px;
+      min-height: 14px;
+      text-align: right;
+      padding-right: 3px;
     }
 
     /* Card Seal/Stamp */
@@ -799,21 +782,22 @@
           <img src="assets/images/logo.png" alt="Logo" class="logo">
         </div>
         <h1 class="app-title">
-          (7'B) 'D7'D( 'DB/JE)
+        أهلا وسهلا
         </h1>
-        <p class="app-subtitle">Old Student Card</p>
+        <p class="app-subtitle">تقديم راشد العجمي         </p>
+          <p class="app-subtitle">مدرسة الشملان 1984</p>
       </div>
 
       <div class="divider"></div>
 
       <div class="welcome-description">
-        <p>'-*A8 (0C1J'* #J'E 'DE/13)</p>
-        <p>Create your commemorative vintage student card</p>
+        <p>(صانع بطاقات التاريخ)</p>
+        <p>منذ القدم والكويت هي درة الخليج</p>
       </div>
 
       <div class="btn-container">
         <button id="startBtn" class="btn">
-          '(/# / Start
+        أبدأ
         </button>
       </div>
     </div>
@@ -865,22 +849,38 @@
           <span class="error-message" id="schoolError"></span>
         </div>
 
-        <!-- Year Field -->
+        <!-- Class Field -->
         <div class="form-group">
-          <label for="studentYear" class="form-label">
-            <span class="label-text">السنة / Year</span>
+          <label for="studentClass" class="form-label">
+            <span class="label-text">الصف / Class</span>
           </label>
           <input
             type="text"
-            id="studentYear"
-            name="studentYear"
+            id="studentClass"
+            name="studentClass"
             class="form-input"
-            placeholder="1975"
-            value="1975"
-            maxlength="4"
+            placeholder="الأول / First"
+            maxlength="20"
             autocomplete="off"
           >
-          <span class="form-hint">السنة الافتراضية: 1975 / Default year: 1975</span>
+          <span class="form-hint">مثال: الأول، الثاني، الثالث / Example: First, Second, Third</span>
+        </div>
+
+        <!-- Age Field -->
+        <div class="form-group">
+          <label for="studentAge" class="form-label">
+            <span class="label-text">السن / Age</span>
+          </label>
+          <input
+            type="text"
+            id="studentAge"
+            name="studentAge"
+            class="form-input"
+            placeholder="7"
+            maxlength="2"
+            autocomplete="off"
+          >
+          <span class="form-hint">العمر بالسنوات / Age in years</span>
         </div>
 
         <!-- Form Actions -->
@@ -912,16 +912,24 @@
           <!-- Logo -->
           <img src="assets/images/logo.png" alt="Logo" class="card-logo">
 
-          <!-- Card Content -->
+          <!-- Card Content - Old School Form Style -->
           <div class="card-content">
-            <div class="card-name" id="cardName">اسم الطالب</div>
-            <div class="card-school" id="cardSchool">اسم المدرسة</div>
-            <div class="card-year" id="cardYear">1975</div>
-          </div>
-
-          <!-- Card Footer -->
-          <div class="card-footer">
-            <div class="card-id" id="cardId">SL-20251109-0000</div>
+            <div class="card-field">
+              <span class="field-label">الاسم :</span>
+              <span class="field-value" id="cardName">_______________</span>
+            </div>
+            <div class="card-field">
+              <span class="field-label">المدرسة:</span>
+              <span class="field-value" id="cardSchool">_______________</span>
+            </div>
+            <div class="card-field">
+              <span class="field-label">الصف :</span>
+              <span class="field-value" id="cardClass">_______________</span>
+            </div>
+            <div class="card-field">
+              <span class="field-label">السن :</span>
+              <span class="field-value" id="cardAge">_______________</span>
+            </div>
           </div>
 
           <!-- Seal/Stamp -->
@@ -967,7 +975,8 @@
         schoolId: '',
         schoolLabel: '',
         schoolLevel: '',
-        year: '1975',
+        class: '',
+        age: '',
         id: '',
         timestamp: ''
       }
@@ -1070,18 +1079,18 @@
 
     // Render Card Preview
     function renderCardPreview() {
-      const { name, schoolLabel, year } = appState.visitor;
+      const { name, schoolLabel, class: studentClass, age } = appState.visitor;
 
-      // Generate ID if not already set
+      // Generate ID if not already set (for localStorage tracking only)
       if (!appState.visitor.id) {
         appState.visitor.id = generateID();
       }
 
-      // Update card elements
-      document.getElementById('cardName').textContent = name;
-      document.getElementById('cardSchool').textContent = schoolLabel;
-      document.getElementById('cardYear').textContent = year;
-      document.getElementById('cardId').textContent = appState.visitor.id;
+      // Update card elements with actual values or underscores if empty
+      document.getElementById('cardName').textContent = name || '_______________';
+      document.getElementById('cardSchool').textContent = schoolLabel || '_______________';
+      document.getElementById('cardClass').textContent = studentClass || '_______________';
+      document.getElementById('cardAge').textContent = age || '_______________';
     }
 
     // Populate School Dropdown
@@ -1166,7 +1175,8 @@
     function clearForm() {
       document.getElementById('studentName').value = '';
       document.getElementById('studentSchool').value = '';
-      document.getElementById('studentYear').value = '1975';
+      document.getElementById('studentClass').value = '';
+      document.getElementById('studentAge').value = '';
       document.getElementById('nameError').textContent = '';
       document.getElementById('schoolError').textContent = '';
       document.getElementById('previewBtn').disabled = true;
@@ -1185,7 +1195,8 @@
       // Get form values
       const name = document.getElementById('studentName').value.trim();
       const schoolValue = document.getElementById('studentSchool').value;
-      const year = document.getElementById('studentYear').value.trim() || '1975';
+      const studentClass = document.getElementById('studentClass').value.trim();
+      const age = document.getElementById('studentAge').value.trim();
 
       // Parse school value (format: "level|schoolName")
       const [schoolLevel, schoolName] = schoolValue.split('|');
@@ -1195,7 +1206,8 @@
       appState.visitor.schoolId = schoolValue;
       appState.visitor.schoolLabel = schoolName;
       appState.visitor.schoolLevel = schoolLevel;
-      appState.visitor.year = year;
+      appState.visitor.class = studentClass;
+      appState.visitor.age = age;
       appState.visitor.timestamp = new Date().toISOString();
 
       // Render the card with data
