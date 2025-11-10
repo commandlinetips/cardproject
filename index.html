@@ -591,6 +591,12 @@
         margin: 0;
       }
 
+      /* Force single page */
+      html, body {
+        height: 60mm !important;
+        overflow: hidden !important;
+      }
+
       body {
         margin: 0;
         padding: 0;
@@ -619,8 +625,12 @@
         border-radius: 0 !important;
         width: 90mm !important;
         height: 60mm !important;
+        page-break-before: avoid !important;
         page-break-after: avoid !important;
         page-break-inside: avoid !important;
+        break-before: avoid !important;
+        break-after: avoid !important;
+        break-inside: avoid !important;
       }
 
       /* Ensure background image prints */
