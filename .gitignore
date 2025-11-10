@@ -1,0 +1,31 @@
+# Example folder with design assets (not needed in production)
+example/
+
+# Documentation files
+*.md
+CLAUDE.md
+PRD.md
+TASKS.md
+PRINT-GUIDE.md
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+*.temp
+
+# Node modules (if using any build tools)
+node_modules/
