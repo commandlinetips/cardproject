@@ -606,10 +606,10 @@
       color: #654321;
     }
 
-    /* Print Media Query - Show both front and back */
+    /* Print Media Query - A4 Landscape with both cards */
     @media print {
       @page {
-        size: 90mm 60mm;
+        size: A4 landscape;
         margin: 0;
       }
 
@@ -622,9 +622,9 @@
         margin: 0 !important;
         padding: 0 !important;
         background: white !important;
-        width: 90mm !important;
-        height: auto !important;
-        overflow: visible !important;
+        width: 297mm !important;
+        height: 210mm !important;
+        overflow: hidden !important;
       }
 
       /* Hide everything except the cards */
@@ -638,10 +638,11 @@
       .preview-container {
         visibility: visible !important;
         display: block !important;
+        position: relative !important;
         margin: 0 !important;
         padding: 0 !important;
-        width: 90mm !important;
-        height: auto !important;
+        width: 297mm !important;
+        height: 210mm !important;
       }
 
       .print-card,
@@ -651,9 +652,11 @@
         visibility: visible !important;
       }
 
-      /* Position front card on first page */
+      /* Position front card in top half - centered horizontally */
       .print-card {
-        position: relative !important;
+        position: absolute !important;
+        left: 103.5mm !important; /* (297 - 90) / 2 = center */
+        top: 30mm !important; /* Position in top half */
         display: block !important;
         margin: 0 !important;
         padding: 8mm !important;
@@ -663,17 +666,15 @@
         width: 90mm !important;
         height: 60mm !important;
         box-sizing: border-box !important;
-        page-break-after: always !important;
-        page-break-before: avoid !important;
         page-break-inside: avoid !important;
-        break-after: page !important;
-        break-before: avoid !important;
-        break-inside: avoid !important;
+        page-break-after: avoid !important;
       }
 
-      /* Position back card on second page */
+      /* Position back card in bottom half - centered horizontally */
       .print-card-back {
-        position: relative !important;
+        position: absolute !important;
+        left: 103.5mm !important; /* (297 - 90) / 2 = center */
+        top: 120mm !important; /* Position in bottom half */
         display: block !important;
         margin: 0 !important;
         padding: 0 !important;
@@ -682,12 +683,8 @@
         width: 90mm !important;
         height: 60mm !important;
         box-sizing: border-box !important;
-        page-break-before: auto !important;
-        page-break-after: avoid !important;
         page-break-inside: avoid !important;
-        break-before: auto !important;
-        break-after: avoid !important;
-        break-inside: avoid !important;
+        page-break-before: avoid !important;
       }
 
       /* Ensure background images print */
@@ -1352,45 +1349,39 @@
         downloadBtn.disabled = true;
 
         // A4 dimensions in mm (landscape)
-        const a4Width = 297;
-        const a4Height = 210;
+        const a4WidthMM = 297;
+        const a4HeightMM = 210;
 
         // Card dimensions in mm
-        const cardWidth = 90;
-        const cardHeight = 60;
+        const cardWidthMM = 90;
+        const cardHeightMM = 60;
 
-        // Calculate center position for cards on A4
-        const cardX = (a4Width - cardWidth) / 2;
-
-        // Position front card in top half, back card in bottom half with spacing
+        // Calculate positions (centered horizontally)
+        const cardX = (a4WidthMM - cardWidthMM) / 2; // 103.5mm
         const spacing = 15; // mm between cards
-        const topCardY = (a4Height / 2 - cardHeight - spacing / 2);
-        const bottomCardY = (a4Height / 2 + spacing / 2);
+        const topCardY = (a4HeightMM / 2 - cardHeightMM - spacing / 2); // ~45mm
+        const bottomCardY = (a4HeightMM / 2 + spacing / 2); // ~105mm
 
-        // Convert front card to canvas at high resolution
+        // Capture front card at high resolution (scale 3 = 3x pixel density)
         const canvasFront = await html2canvas(cardFrontElement, {
-          scale: 4,
+          scale: 3,
           useCORS: true,
           backgroundColor: '#ffffff',
-          logging: false,
-          width: cardFrontElement.offsetWidth,
-          height: cardFrontElement.offsetHeight
+          logging: false
         });
 
-        // Convert back card to canvas at high resolution
+        // Capture back card at high resolution (scale 3 = 3x pixel density)
         const canvasBack = await html2canvas(cardBackElement, {
-          scale: 4,
+          scale: 3,
           useCORS: true,
           backgroundColor: '#ffffff',
-          logging: false,
-          width: cardBackElement.offsetWidth,
-          height: cardBackElement.offsetHeight
+          logging: false
         });
 
         // Get jsPDF from window (loaded via CDN)
         const { jsPDF } = window.jspdf;
 
-        // Create PDF with A4 landscape dimensions
+        // Create PDF with SINGLE A4 landscape page
         const pdf = new jsPDF({
           orientation: 'landscape',
           unit: 'mm',
@@ -1401,17 +1392,12 @@
         const imgDataFront = canvasFront.toDataURL('image/png', 1.0);
         const imgDataBack = canvasBack.toDataURL('image/png', 1.0);
 
-        // Add front card to top half (centered horizontally)
-        pdf.addImage(imgDataFront, 'PNG', cardX, topCardY, cardWidth, cardHeight, '', 'FAST');
+        // Add BOTH cards to THE SAME PAGE
+        // Front card in top half
+        pdf.addImage(imgDataFront, 'PNG', cardX, topCardY, cardWidthMM, cardHeightMM);
 
-        // Add back card to bottom half (centered horizontally)
-        pdf.addImage(imgDataBack, 'PNG', cardX, bottomCardY, cardWidth, cardHeight, '', 'FAST');
-
-        // Add guide text (optional - for alignment)
-        pdf.setFontSize(8);
-        pdf.setTextColor(150, 150, 150);
-        pdf.text('Front', cardX + cardWidth / 2, topCardY - 2, { align: 'center' });
-        pdf.text('Back', cardX + cardWidth / 2, bottomCardY - 2, { align: 'center' });
+        // Back card in bottom half (NO pdf.addPage() call - same page!)
+        pdf.addImage(imgDataBack, 'PNG', cardX, bottomCardY, cardWidthMM, cardHeightMM);
 
         // Generate filename with visitor name and ID
         const filename = `student-card-${appState.visitor.name.replace(/\s+/g, '-')}-${appState.visitor.id}.pdf`;

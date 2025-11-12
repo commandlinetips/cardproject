@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Card - Network Access</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-width: 500px;
+    }
+    h1 {
+      color: #8b4513;
+      margin-bottom: 20px;
+      direction: rtl;
+    }
+    .url {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2c5f2d;
+      padding: 20px;
+      background: #f0f0f0;
+      border-radius: 8px;
+      margin: 20px 0;
+      word-break: break-all;
+    }
+    .qr-code {
+      margin: 30px auto;
+    }
+    .instructions {
+      text-align: right;
+      direction: rtl;
+      line-height: 1.8;
+      color: #555;
+      margin-top: 20px;
+    }
+    .instructions-en {
+      text-align: left;
+      direction: ltr;
+      line-height: 1.8;
+      color: #555;
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Old Student Card<br>بطاقة الطالب القديمة</h1>
+
+    <div class="qr-code">
+      <img id="qrcode" alt="QR Code" style="width: 250px; height: 250px;">
+    </div>
+
+    <div class="url" id="accessUrl">http://192.168.1.101:8000</div>
+
+    <div class="instructions">
+      <strong>📱 للوصول إلى التطبيق:</strong><br>
+      ١. تأكد من اتصالك بنفس شبكة الواي فاي<br>
+      ٢. امسح رمز QR أعلاه أو<br>
+      ٣. افتح المتصفح واكتب العنوان أعلاه
+    </div>
+
+    <div class="instructions-en">
+      <strong>📱 To access the app:</strong><br>
+      1. Make sure you're on the same WiFi network<br>
+      2. Scan the QR code above or<br>
+      3. Open a browser and type the URL above
+    </div>
+  </div>
+
+  <script>
+    // Generate QR code using Google Charts API
+    const url = window.location.origin;
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(url)}`;
+    document.getElementById('qrcode').src = qrUrl;
+    document.getElementById('accessUrl').textContent = url;
+  </script>
+</body>
+</html>
